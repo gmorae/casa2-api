@@ -6,7 +6,7 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
-      host: 'us-cdbr-east-05.cleardb.net',
+      host: 'us-cdbr-east-02.cleardb.com',
       user: 'b330a226aabe8a',
       password: 'c291fa31',
       database: 'heroku_88420d2ecdde9ff',
@@ -21,7 +21,7 @@ module.exports = {
   staging: {
     client: 'mysql',
     connection: {
-      host: 'us-cdbr-iron-east-04.cleardb.net',
+      host: 'us-cdbr-east-02.cleardb.com',
       user: 'b330a226aabe8a',
       password: 'c291fa31',
       database: 'heroku_88420d2ecdde9ff'
@@ -35,7 +35,7 @@ module.exports = {
   production: {
     client: 'mysql',
     connection: {
-      host: 'us-cdbr-iron-east-04.cleardb.net',
+      host: 'us-cdbr-east-02.cleardb.com',
       user: 'b330a226aabe8a',
       password: 'c291fa31',
       database: 'heroku_88420d2ecdde9ff'

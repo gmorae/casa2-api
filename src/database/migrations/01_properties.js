@@ -4,9 +4,7 @@ exports.up = function (knex) {
     table.string('title').notNullable();
     table.string('description').notNullable();
     table.string('image').notNullable();
-
     table.string('id_category').notNullable();
-    table.foreign('id_category').references('id').inTable('categories');
   })
 };
 
