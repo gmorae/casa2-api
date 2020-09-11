@@ -1,48 +1,49 @@
 // Update with your config settings.
+const path = require('path');
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
     connection: {
-      filename: './src/database/dev.sqlite3'
+      host: 'us-cdbr-east-05.cleardb.net',
+      user: 'b330a226aabe8a',
+      password: 'c291fa31',
+      database: 'heroku_88420d2ecdde9ff',
+      charset: 'utf8'
+    },
+    migrations: {
+      directory: path.resolve(__dirname, "src", "database", "migrations"),
+    },
+    useNullAsDefault: true
+  },
+
+  staging: {
+    client: 'mysql',
+    connection: {
+      host: 'us-cdbr-iron-east-04.cleardb.net',
+      user: 'b330a226aabe8a',
+      password: 'c291fa31',
+      database: 'heroku_88420d2ecdde9ff'
     },
     migrations: {
       directory: './src/database/migrations'
     },
-    useNullAsDefault: true,
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+    useNullAsDefault: true
   },
 
   production: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      host: 'us-cdbr-iron-east-04.cleardb.net',
+      user: 'b330a226aabe8a',
+      password: 'c291fa31',
+      database: 'heroku_88420d2ecdde9ff'
     },
     migrations: {
-      tableName: 'knex_migrations'
-    }
+      directory: './src/database/migrations'
+    },
+    useNullAsDefault: true
   }
 
 };
