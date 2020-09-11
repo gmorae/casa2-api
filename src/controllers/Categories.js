@@ -3,68 +3,42 @@ const connection = require('../database/connection')
 module.exports = {
 
 	async index(req, res) {
-		return res.json(await connection('categories').select('*'))
+		const allCategory = await connection('categories').select('*');
+		for (let index = 0; index < allCategory.length; index++) {
+			const { id, title } = allCategory[index];
+			const [count] = await connection('properties').select('*').where({ id }).count();
+			allCategory[index] = { id, title, qtd: count['count(*)'] }
+		}
+		return res.json(allCategory)
 	},
 
-	async indexById(req, res) {
+	async show(req, res) {
 		const { id } = req.params
-		return res.json(await connection('users').select('*').where({ id_user: id }))
+		return res.json(await connection('properties').select('*').where({ id_category: id }))
 	},
 
 	async create(req, res) {
-		const { name, age, photo } = req.body
-		if (!name || !age || !photo) {
-
-			res.json({ message: "Preencha todos os campos para que possa realizar o cadastro" })
-
+		const { title } = req.body
+		if (!title) {
+			res.status(400).send();
 		} else {
-
-			await connection('users').insert({
-				name,
-				age,
-				photo
-			})
-
-			return res.json({ message: "Usuário cadastrado com sucesso" })
+			await connection('categories').insert({ title })
+			return res.status(201).send();
 		}
-	},
-
-	async edit(req, res) {
-		const { id } = req.params
-		const { name, age, photo } = req.body
-
-		const verifyId = await connection('users').where({ id_user: id }).first()
-
-		if (verifyId) {
-
-			await connection('users').update({
-				name,
-				age,
-				photo
-			}).where({ id_user: id })
-
-			return res.json({ message: 'Usuário editado com sucesso' })
-
-		} else {
-
-			return res.json({ message: 'O usuário não este' })
-
-		}
-
 	},
 
 	async delete(req, res) {
 		const { id } = req.params
 
-		const verifyId = await connection('users').where({ id_user: id }).first()
+		const verifyId = await connection('categories').where({ id }).first()
 		if (verifyId) {
 
-			await connection('users').delete().where({ id_user: id })
+			await connection('categories').delete().where({ id })
 
-			return res.json({ message: "Usuário foi deletado com sucesso" })
+			return res.status(201).send();
 		} else {
 
-			return res.json({ message: "Naõ foi possivel deletar o usuário" })
+			return res.status(400).send();
 		}
 	}
 

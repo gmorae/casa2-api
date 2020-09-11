@@ -11,5 +11,8 @@ routes.get('/', (_req, res, _next) => {
 });
 
 routes.get('/categories', CategoriesController.index);
+routes.get('/categories/:id', CategoriesController.show);
+routes.post('/categories', CategoriesController.create);
+routes.delete('/categories/:id', CategoriesController.delete);
 
 module.exports = routes
